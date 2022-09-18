@@ -55,7 +55,7 @@ class ProfileController extends Controller
 
             return response()->json(['profile' => $profile], 200);
         } catch (\Throwable $th) {
-            return response()->json(['err' => $th->getMessage()], 500);
+            return response()->json(['err' => $th->getMessage()], 402);
         }
 
     }
