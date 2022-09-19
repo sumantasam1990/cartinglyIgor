@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
 
@@ -42,10 +43,10 @@ class ProductCategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ProductCategory  $productCategory
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return JsonResponse
      */
-    public function show(int $id)
+    public function show(int $id): JsonResponse
     {
         $product_type = Cart::select('id', 'cart_name as cart', 'important_details as description', 'user_id')->with(['product_categories' => function ($query) {
             $query->select('id as typeId', 'cate_name as type', 'user_id as uid', 'cart_id');
@@ -59,7 +60,7 @@ class ProductCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ProductCategory  $productCategory
+     * @param ProductCategory $productCategory
      * @return \Illuminate\Http\Response
      */
     public function edit(ProductCategory $productCategory)
@@ -71,7 +72,7 @@ class ProductCategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProductCategory  $productCategory
+     * @param ProductCategory $productCategory
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ProductCategory $productCategory)
@@ -82,7 +83,7 @@ class ProductCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ProductCategory  $productCategory
+     * @param ProductCategory $productCategory
      * @return \Illuminate\Http\Response
      */
     public function destroy(ProductCategory $productCategory)
