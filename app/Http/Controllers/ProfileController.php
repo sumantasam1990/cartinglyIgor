@@ -80,7 +80,7 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return '';
     }
 
     /**
@@ -91,6 +91,6 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return '';
     }
 }
