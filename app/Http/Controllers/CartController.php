@@ -53,7 +53,7 @@ class CartController extends Controller
             $query->select('id as typeId', 'cate_name as type', 'user_id as uid', 'cart_id');
         }, 'user' => function ($query) {
             $query->select('id', 'name');
-        }])->withCount('cart_opens as opens')->where('level_two_id', $id)->get();
+        }])->withCount('cart_opens as opens')->where('level_two_id', $id)->whereStatus(1)->get();
 
         return response()->json(['carts' => $carts], 200);
     }

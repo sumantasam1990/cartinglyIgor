@@ -9,6 +9,36 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
 
+/**
+ * App\Models\Product
+ *
+ * @property int $id
+ * @property int $product_category_id
+ * @property string $prod_title
+ * @property string $shop_where_buy
+ * @property float $prod_price
+ * @property string $prod_page_url
+ * @property string $important_details
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read ProductCategory|null $product_categories
+ * @property-read ProductImage|null $product_image
+ * @property-read \Illuminate\Database\Eloquent\Collection|ProductImage[] $product_images
+ * @property-read int|null $product_images_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Product query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereImportantDetails($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereProdPageUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereProdPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereProdTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereProductCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereShopWhereBuy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Product extends Model implements Searchable
 {
     use HasFactory;

@@ -2,95 +2,91 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\Follower;
+use App\Models\MainCategory;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
+    public function unpublishedCarts(int $id = 0, int $status = 0): JsonResponse
     {
-        //
+        return $this->extracted($id, $status);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
+    public function publishedCarts(int $id = 0, int $status = 1): JsonResponse
     {
-        //
+        return $this->extracted($id, $status);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return Response
-     */
-    public function store(Request $request)
+    public function savedCarts(int $id = 0): JsonResponse
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return JsonResponse
-     */
-    public function show(int $id): JsonResponse
-    {
-        try {
-            $profile = User::with('carts.product_categories.products.product_image', 'save_cart_many_single', 'save_cart_many_multi')
-                ->where('id', '=', $id)
+        if($id === 0) {
+            $saved_carts = User::with('save_cart_many')
+                ->whereId(auth()->user()->id)
                 ->get();
 
-            return response()->json(['profile' => $profile], 200);
-        } catch (\Exception $th) {
-            return response()->json(['err' => $th->getMessage()], 500);
+        } else {
+            $saved_carts = User::with('save_cart_many')
+                ->whereId($id)
+                ->get();
         }
 
+        return response()->json(['saved_carts' => $saved_carts], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return string
-     */
-    public function edit(int $id): string
+    public function cartsFollowing(int $id = 0): JsonResponse
     {
-        return '';
+        if($id === 0) {
+            $followers = Follower::with(['followings.carts' => function($query) {
+                $query->withCount('cart_opens as opens');
+            }])
+                ->where('user_id', \auth()->user()->id)
+                ->get();
+        } else {
+            $followers = Follower::with(['followings.carts' => function($query) {
+                $query->withCount('cart_opens as opens');
+            }])
+                ->where('user_id', $id)
+                ->get();
+        }
+
+        return response()->json(['follow_carts' => $followers], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
+    public function cartsListing(int $id = 0, int $main = 0): JsonResponse
     {
-        return '';
+        if($id === 0) {
+            $listing = Cart::where('user_id', \auth()->user()->id)
+                ->where('main_category_id', $main)
+                ->where('status', 1)
+                ->withCount('cart_opens as opens')
+                ->get();
+        } else {
+            $listing = Cart::where('user_id', $id)
+                ->where('main_category_id', $main)
+                ->where('status', 1)
+                ->withCount('cart_opens as opens')
+                ->get();
+        }
+
+        return response()->json(['listings' => $listing], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
+
+    private function extracted(int $id, int $status): JsonResponse
     {
-        return '';
+        if ($id === 0) {
+            $unpublished = Cart::withCount('cart_opens as opens')->where('status', $status)->where('user_id', auth()->user()->id)->get();
+
+        } else {
+            $unpublished = Cart::withCount('cart_opens as opens')->where('status', $status)->where('user_id', $id
+            )->get();
+        }
+        return response()->json(['carts' => $unpublished], 200);
     }
 }

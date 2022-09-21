@@ -56,8 +56,16 @@ Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
     // search carts
     Route::get('search/{term}', [SearchController::class, 'index']);
 
-    //public profile
-    Route::get('profile/{id}', [\App\Http\Controllers\ProfileController::class, 'show']);
+    // profile
+    Route::get('profile/unpublished/carts/{id?}', [\App\Http\Controllers\ProfileController::class, 'unpublishedCarts']);
+
+    Route::get('profile/published/carts/{id?}', [\App\Http\Controllers\ProfileController::class, 'publishedCarts']);
+
+    Route::get('profile/saved/carts/{id?}', [\App\Http\Controllers\ProfileController::class, 'savedCarts']);
+
+    Route::get('profile/follow/carts/{id?}', [\App\Http\Controllers\ProfileController::class, 'cartsFollowing']);
+
+    Route::get('profile/listing/carts/{id?}/{main}', [\App\Http\Controllers\ProfileController::class, 'cartsListing']);
 
 
 
@@ -88,3 +96,14 @@ Route::prefix('v1')->group(function () {
 
 
 });
+
+//Route::get('follow', function () {
+//    $user1 = User::find(10001);
+//    $user2 = User::find(1);
+//    $user1->follow($user2);
+//
+//    $posts = \App\Models\Cart::whereUserId('1')->pluck('id');
+//
+//    //dd($posts);
+//    //$user1->follow([1,2]); // targets: $post->id, $class = App\Post
+//});
