@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
@@ -75,6 +76,32 @@ class ProfileController extends Controller
         }
 
         return response()->json(['listings' => $listing], 200);
+    }
+
+    public function totalCartsOpens(int $id = 0): JsonResponse
+    {
+        if($id === 0) {
+            $opens = DB::select('select count(id) as opens from cart_opens where cart_id in (select id from carts where carts.user_id = ?) and user_id = ?', [\auth()->user()->id, \auth()->user()->id]);
+        } else {
+            $opens = DB::select('select count(id) as opens from cart_opens where cart_id in (select id from carts where carts.user_id = ?) and user_id = ?', [\auth()->user()->id, \auth()->user()->id]);
+        }
+
+        return \response()->json(['total' => $opens], 200);
+    }
+
+    public function totalFollowers(int $id = 0): JsonResponse
+    {
+        if($id === 0) {
+            $followers = User::withCount('followers as followers')
+                ->where('id', \auth()->user()->id)
+                ->get();
+        } else {
+            $followers = User::withCount('followers as followers')
+                ->where('id', $id)
+                ->get();
+        }
+
+        return \response()->json(['total' => $followers], 200);
     }
 
 

@@ -67,6 +67,12 @@ Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
 
     Route::get('profile/listing/carts/{id?}/{main}', [\App\Http\Controllers\ProfileController::class, 'cartsListing']);
 
+    Route::get('profile/total/opens/{id?}', [\App\Http\Controllers\ProfileController::class, 'totalCartsOpens']);
+
+    Route::get('profile/total/followers/{id?}', [\App\Http\Controllers\ProfileController::class, 'totalFollowers']);
+
+
+
 
 
 

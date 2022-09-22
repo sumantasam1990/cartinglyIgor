@@ -48,7 +48,7 @@ class ProductCategoryController extends Controller
      */
     public function show(int $id): JsonResponse
     {
-        $product_type = Cart::select('id', 'cart_name as cart', 'important_details as description', 'user_id')->with(['product_categories' => function ($query) {
+        $product_type = Cart::select('id', 'cart_name as cart', 'important_details as description', 'user_id', 'main_photo as cart_photo')->with(['product_categories' => function ($query) {
             $query->select('id as typeId', 'cate_name as type', 'user_id as uid', 'cart_id');
         }, 'user' => function ($query) {
             $query->select('id', 'name');
