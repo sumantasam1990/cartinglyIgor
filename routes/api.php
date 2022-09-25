@@ -71,6 +71,8 @@ Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
 
     Route::get('profile/total/followers/{id?}', [\App\Http\Controllers\ProfileController::class, 'totalFollowers']);
 
+    Route::get('done', [\App\Http\Controllers\ProfileController::class, 'totalFollowers']);
+
 
 
 
