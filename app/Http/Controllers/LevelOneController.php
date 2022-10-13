@@ -44,7 +44,7 @@ class LevelOneController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\LevelOne  $levelOne
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(int $id)
     {

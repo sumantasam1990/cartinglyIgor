@@ -58,7 +58,7 @@ class LevelTwoController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\LevelTwo  $levelTwo
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(int $id)
     {

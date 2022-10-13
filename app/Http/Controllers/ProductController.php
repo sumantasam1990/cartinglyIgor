@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -27,15 +28,20 @@ class ProductController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        //
+        $product = new Product;
+
+        $product->product_category_id = $request->cate;
+        $product->prod_title = $request->title;
+        $product->shop_where_buy = $request->buy;
+        $product->prod_price = $request->price;
+        $product->prod_page_url = $request->url;
+        $product->important_details = $request->imp;
+
+        $product->save();
+
+        return response()->json(['id' => $product->id], 200);
     }
 
     /**

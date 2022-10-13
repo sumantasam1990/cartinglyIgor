@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductImage;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ProductImageController extends Controller
@@ -12,9 +13,12 @@ class ProductImageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id): JsonResponse
     {
-        //
+        $images = ProductImage::where('product_id', $id)
+            ->get();
+
+        return response()->json(['data' => $images], 200);
     }
 
     /**
@@ -27,15 +31,24 @@ class ProductImageController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        //
+        if ($request->photo) {
+            $folderPath = "uploads/";
+
+            $image_base64 = base64_decode($request->photo);
+            $file = $folderPath . 'cartingly_'.uniqid().time() . '.jpg';
+
+            file_put_contents($file, $image_base64);
+
+            $image = new ProductImage;
+
+            $image->product_id = $request->prod;
+            $image->img_url = env('APP_URL') . '/' . $file;
+
+            $image->save();
+        }
+        return response()->json(['upload' => 'success'], 200);
     }
 
     /**

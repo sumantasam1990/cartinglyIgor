@@ -75,6 +75,10 @@ class User extends Authenticatable implements Searchable
         'name',
         'email',
         'password',
+        'twitter',
+        'fb',
+        'pin',
+        'photo'
     ];
 
     /**

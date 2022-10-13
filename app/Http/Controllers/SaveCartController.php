@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\CartUser;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -41,9 +42,25 @@ class SaveCartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        //
+        $check = Cart::where('status', 1)
+            ->where('id', $request->cart)
+            ->count('id');
+        if($check > 0) {
+            $saveCart = new CartUser;
+
+            $saveCart->user_id = auth()->user()->id;
+            $saveCart->cart_id = $request->cart;
+            $saveCart->type = 'single';
+
+            $saveCart->save();
+
+            return response()->json(['id' => $saveCart->id], 200);
+        } else {
+            return response()->json(['error' => 'This cart is unpublished.'], 200);
+        }
+
     }
 
     /**

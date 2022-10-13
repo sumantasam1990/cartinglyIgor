@@ -20,6 +20,34 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/advertisers', function () {
+    return view('advertisers');
+});
+
+Route::post('/subscribe', function (\Illuminate\Http\Request $request) {
+    $subscriber = new \App\Models\Subscriber;
+
+    $subscriber->email = $request->email;
+
+    $subscriber->save();
+
+    return redirect()->back()->with('msg', '😀 Thank you.');
+});
+
+Route::get('/privacy', function () {
+    return view('privacy');
+});
+
+Route::get('/terms', function () {
+    return view('terms');
+});
+
+Route::get('/admin/subscriber/list', function () {
+    $subscribers = \App\Models\Subscriber::all();
+    return view('admin.user_list', ['subscribers' => $subscribers]);
+});
+
+
 
 Route::get('add/role', function() {
     //$role = Role::create(['name' => 'vendor']);

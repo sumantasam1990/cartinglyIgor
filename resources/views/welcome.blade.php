@@ -1,132 +1,380 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cartingly</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
-        <title>Laravel</title>
+    <style>
+        a {
+            text-decoration: none;
+            border-radius: 2px;
+            color: #000000;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        * {
+            border-radius: 2px !important;
+        }
+    </style>
+</head>
+<body>
 
-        <!-- Fonts -->
-        <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="{{asset('logo.webp')}}" style="width: 120px; float: right; margin-right: 20px;" class="img-fluid" alt="cartingly">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+{{--            <ul class="navbar-nav me-auto mb-2 mb-lg-0">--}}
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link active" aria-current="page" href="#">Home</a>--}}
+{{--                </li>--}}
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link" href="#">Link</a>--}}
+{{--                </li>--}}
+{{--                <li class="nav-item dropdown">--}}
+{{--                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">--}}
+{{--                        Dropdown--}}
+{{--                    </a>--}}
+{{--                    <ul class="dropdown-menu">--}}
+{{--                        <li><a class="dropdown-item" href="#">Action</a></li>--}}
+{{--                        <li><a class="dropdown-item" href="#">Another action</a></li>--}}
+{{--                        <li><hr class="dropdown-divider"></li>--}}
+{{--                        <li><a class="dropdown-item" href="#">Something else here</a></li>--}}
+{{--                    </ul>--}}
+{{--                </li>--}}
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link disabled">Disabled</a>--}}
+{{--                </li>--}}
+{{--            </ul>--}}
 
-        <!-- Styles -->
-        <style>
-            /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}a{background-color:transparent}[hidden]{display:none}html{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;line-height:1.5}*,:after,:before{box-sizing:border-box;border:0 solid #e2e8f0}a{color:inherit;text-decoration:inherit}svg,video{display:block;vertical-align:middle}video{max-width:100%;height:auto}.bg-white{--bg-opacity:1;background-color:#fff;background-color:rgba(255,255,255,var(--bg-opacity))}.bg-gray-100{--bg-opacity:1;background-color:#f7fafc;background-color:rgba(247,250,252,var(--bg-opacity))}.border-gray-200{--border-opacity:1;border-color:#edf2f7;border-color:rgba(237,242,247,var(--border-opacity))}.border-t{border-top-width:1px}.flex{display:flex}.grid{display:grid}.hidden{display:none}.items-center{align-items:center}.justify-center{justify-content:center}.font-semibold{font-weight:600}.h-5{height:1.25rem}.h-8{height:2rem}.h-16{height:4rem}.text-sm{font-size:.875rem}.text-lg{font-size:1.125rem}.leading-7{line-height:1.75rem}.mx-auto{margin-left:auto;margin-right:auto}.ml-1{margin-left:.25rem}.mt-2{margin-top:.5rem}.mr-2{margin-right:.5rem}.ml-2{margin-left:.5rem}.mt-4{margin-top:1rem}.ml-4{margin-left:1rem}.mt-8{margin-top:2rem}.ml-12{margin-left:3rem}.-mt-px{margin-top:-1px}.max-w-6xl{max-width:72rem}.min-h-screen{min-height:100vh}.overflow-hidden{overflow:hidden}.p-6{padding:1.5rem}.py-4{padding-top:1rem;padding-bottom:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.pt-8{padding-top:2rem}.fixed{position:fixed}.relative{position:relative}.top-0{top:0}.right-0{right:0}.shadow{box-shadow:0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06)}.text-center{text-align:center}.text-gray-200{--text-opacity:1;color:#edf2f7;color:rgba(237,242,247,var(--text-opacity))}.text-gray-300{--text-opacity:1;color:#e2e8f0;color:rgba(226,232,240,var(--text-opacity))}.text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}.text-gray-500{--text-opacity:1;color:#a0aec0;color:rgba(160,174,192,var(--text-opacity))}.text-gray-600{--text-opacity:1;color:#718096;color:rgba(113,128,150,var(--text-opacity))}.text-gray-700{--text-opacity:1;color:#4a5568;color:rgba(74,85,104,var(--text-opacity))}.text-gray-900{--text-opacity:1;color:#1a202c;color:rgba(26,32,44,var(--text-opacity))}.underline{text-decoration:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.w-5{width:1.25rem}.w-8{width:2rem}.w-auto{width:auto}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}@media (min-width:640px){.sm\:rounded-lg{border-radius:.5rem}.sm\:block{display:block}.sm\:items-center{align-items:center}.sm\:justify-start{justify-content:flex-start}.sm\:justify-between{justify-content:space-between}.sm\:h-20{height:5rem}.sm\:ml-0{margin-left:0}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:pt-0{padding-top:0}.sm\:text-left{text-align:left}.sm\:text-right{text-align:right}}@media (min-width:768px){.md\:border-t-0{border-top-width:0}.md\:border-l{border-left-width:1px}.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (min-width:1024px){.lg\:px-8{padding-left:2rem;padding-right:2rem}}@media (prefers-color-scheme:dark){.dark\:bg-gray-800{--bg-opacity:1;background-color:#2d3748;background-color:rgba(45,55,72,var(--bg-opacity))}.dark\:bg-gray-900{--bg-opacity:1;background-color:#1a202c;background-color:rgba(26,32,44,var(--bg-opacity))}.dark\:border-gray-700{--border-opacity:1;border-color:#4a5568;border-color:rgba(74,85,104,var(--border-opacity))}.dark\:text-white{--text-opacity:1;color:#fff;color:rgba(255,255,255,var(--text-opacity))}.dark\:text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}.dark\:text-gray-500{--tw-text-opacity:1;color:#6b7280;color:rgba(107,114,128,var(--tw-text-opacity))}}
-        </style>
+        </div>
+    </div>
+</nav>
 
-        <style>
-            body {
-                font-family: 'Nunito', sans-serif;
-            }
-        </style>
-    </head>
-    <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-                    <svg viewBox="0 0 651 192" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto text-gray-700 sm:h-20">
-                        <g clip-path="url(#clip0)" fill="#EF3B2D">
-                            <path d="M248.032 44.676h-16.466v100.23h47.394v-14.748h-30.928V44.676zM337.091 87.202c-2.101-3.341-5.083-5.965-8.949-7.875-3.865-1.909-7.756-2.864-11.669-2.864-5.062 0-9.69.931-13.89 2.792-4.201 1.861-7.804 4.417-10.811 7.661-3.007 3.246-5.347 6.993-7.016 11.239-1.672 4.249-2.506 8.713-2.506 13.389 0 4.774.834 9.26 2.506 13.459 1.669 4.202 4.009 7.925 7.016 11.169 3.007 3.246 6.609 5.799 10.811 7.66 4.199 1.861 8.828 2.792 13.89 2.792 3.913 0 7.804-.955 11.669-2.863 3.866-1.908 6.849-4.533 8.949-7.875v9.021h15.607V78.182h-15.607v9.02zm-1.431 32.503c-.955 2.578-2.291 4.821-4.009 6.73-1.719 1.91-3.795 3.437-6.229 4.582-2.435 1.146-5.133 1.718-8.091 1.718-2.96 0-5.633-.572-8.019-1.718-2.387-1.146-4.438-2.672-6.156-4.582-1.719-1.909-3.032-4.152-3.938-6.73-.909-2.577-1.36-5.298-1.36-8.161 0-2.864.451-5.585 1.36-8.162.905-2.577 2.219-4.819 3.938-6.729 1.718-1.908 3.77-3.437 6.156-4.582 2.386-1.146 5.059-1.718 8.019-1.718 2.958 0 5.656.572 8.091 1.718 2.434 1.146 4.51 2.674 6.229 4.582 1.718 1.91 3.054 4.152 4.009 6.729.953 2.577 1.432 5.298 1.432 8.162-.001 2.863-.479 5.584-1.432 8.161zM463.954 87.202c-2.101-3.341-5.083-5.965-8.949-7.875-3.865-1.909-7.756-2.864-11.669-2.864-5.062 0-9.69.931-13.89 2.792-4.201 1.861-7.804 4.417-10.811 7.661-3.007 3.246-5.347 6.993-7.016 11.239-1.672 4.249-2.506 8.713-2.506 13.389 0 4.774.834 9.26 2.506 13.459 1.669 4.202 4.009 7.925 7.016 11.169 3.007 3.246 6.609 5.799 10.811 7.66 4.199 1.861 8.828 2.792 13.89 2.792 3.913 0 7.804-.955 11.669-2.863 3.866-1.908 6.849-4.533 8.949-7.875v9.021h15.607V78.182h-15.607v9.02zm-1.432 32.503c-.955 2.578-2.291 4.821-4.009 6.73-1.719 1.91-3.795 3.437-6.229 4.582-2.435 1.146-5.133 1.718-8.091 1.718-2.96 0-5.633-.572-8.019-1.718-2.387-1.146-4.438-2.672-6.156-4.582-1.719-1.909-3.032-4.152-3.938-6.73-.909-2.577-1.36-5.298-1.36-8.161 0-2.864.451-5.585 1.36-8.162.905-2.577 2.219-4.819 3.938-6.729 1.718-1.908 3.77-3.437 6.156-4.582 2.386-1.146 5.059-1.718 8.019-1.718 2.958 0 5.656.572 8.091 1.718 2.434 1.146 4.51 2.674 6.229 4.582 1.718 1.91 3.054 4.152 4.009 6.729.953 2.577 1.432 5.298 1.432 8.162 0 2.863-.479 5.584-1.432 8.161zM650.772 44.676h-15.606v100.23h15.606V44.676zM365.013 144.906h15.607V93.538h26.776V78.182h-42.383v66.724zM542.133 78.182l-19.616 51.096-19.616-51.096h-15.808l25.617 66.724h19.614l25.617-66.724h-15.808zM591.98 76.466c-19.112 0-34.239 15.706-34.239 35.079 0 21.416 14.641 35.079 36.239 35.079 12.088 0 19.806-4.622 29.234-14.688l-10.544-8.158c-.006.008-7.958 10.449-19.832 10.449-13.802 0-19.612-11.127-19.612-16.884h51.777c2.72-22.043-11.772-40.877-33.023-40.877zm-18.713 29.28c.12-1.284 1.917-16.884 18.589-16.884 16.671 0 18.697 15.598 18.813 16.884h-37.402zM184.068 43.892c-.024-.088-.073-.165-.104-.25-.058-.157-.108-.316-.191-.46-.056-.097-.137-.176-.203-.265-.087-.117-.161-.242-.265-.345-.085-.086-.194-.148-.29-.223-.109-.085-.206-.182-.327-.252l-.002-.001-.002-.002-35.648-20.524a2.971 2.971 0 00-2.964 0l-35.647 20.522-.002.002-.002.001c-.121.07-.219.167-.327.252-.096.075-.205.138-.29.223-.103.103-.178.228-.265.345-.066.089-.147.169-.203.265-.083.144-.133.304-.191.46-.031.085-.08.162-.104.25-.067.249-.103.51-.103.776v38.979l-29.706 17.103V24.493a3 3 0 00-.103-.776c-.024-.088-.073-.165-.104-.25-.058-.157-.108-.316-.191-.46-.056-.097-.137-.176-.203-.265-.087-.117-.161-.242-.265-.345-.085-.086-.194-.148-.29-.223-.109-.085-.206-.182-.327-.252l-.002-.001-.002-.002L40.098 1.396a2.971 2.971 0 00-2.964 0L1.487 21.919l-.002.002-.002.001c-.121.07-.219.167-.327.252-.096.075-.205.138-.29.223-.103.103-.178.228-.265.345-.066.089-.147.169-.203.265-.083.144-.133.304-.191.46-.031.085-.08.162-.104.25-.067.249-.103.51-.103.776v122.09c0 1.063.568 2.044 1.489 2.575l71.293 41.045c.156.089.324.143.49.202.078.028.15.074.23.095a2.98 2.98 0 001.524 0c.069-.018.132-.059.2-.083.176-.061.354-.119.519-.214l71.293-41.045a2.971 2.971 0 001.489-2.575v-38.979l34.158-19.666a2.971 2.971 0 001.489-2.575V44.666a3.075 3.075 0 00-.106-.774zM74.255 143.167l-29.648-16.779 31.136-17.926.001-.001 34.164-19.669 29.674 17.084-21.772 12.428-43.555 24.863zm68.329-76.259v33.841l-12.475-7.182-17.231-9.92V49.806l12.475 7.182 17.231 9.92zm2.97-39.335l29.693 17.095-29.693 17.095-29.693-17.095 29.693-17.095zM54.06 114.089l-12.475 7.182V46.733l17.231-9.92 12.475-7.182v74.537l-17.231 9.921zM38.614 7.398l29.693 17.095-29.693 17.095L8.921 24.493 38.614 7.398zM5.938 29.632l12.475 7.182 17.231 9.92v79.676l.001.005-.001.006c0 .114.032.221.045.333.017.146.021.294.059.434l.002.007c.032.117.094.222.14.334.051.124.088.255.156.371a.036.036 0 00.004.009c.061.105.149.191.222.288.081.105.149.22.244.314l.008.01c.084.083.19.142.284.215.106.083.202.178.32.247l.013.005.011.008 34.139 19.321v34.175L5.939 144.867V29.632h-.001zm136.646 115.235l-65.352 37.625V148.31l48.399-27.628 16.953-9.677v33.862zm35.646-61.22l-29.706 17.102V66.908l17.231-9.92 12.475-7.182v33.841z"/>
-                        </g>
-                    </svg>
-                </div>
-
-                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                    <div class="grid grid-cols-1 md:grid-cols-2">
-                        <div class="p-6">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laravel.com/docs" class="underline text-gray-900 dark:text-white">Documentation</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laravel has wonderful, thorough documentation covering every aspect of the framework. Whether you are new to the framework or have previous experience with Laravel, we recommend reading all of the documentation from beginning to end.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laracasts.com" class="underline text-gray-900 dark:text-white">Laracasts</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript development. Check them out, see for yourself, and massively level up your development skills in the process.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laravel-news.com/" class="underline text-gray-900 dark:text-white">Laravel News</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laravel News is a community driven portal and newsletter aggregating all of the latest and most important news in the Laravel ecosystem, including new package releases and tutorials.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-l">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold text-gray-900 dark:text-white">Vibrant Ecosystem</div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laravel's robust library of first-party tools and libraries, such as <a href="https://forge.laravel.com" class="underline">Forge</a>, <a href="https://vapor.laravel.com" class="underline">Vapor</a>, <a href="https://nova.laravel.com" class="underline">Nova</a>, and <a href="https://envoyer.io" class="underline">Envoyer</a> help you take your projects to the next level. Pair them with powerful open source libraries like <a href="https://laravel.com/docs/billing" class="underline">Cashier</a>, <a href="https://laravel.com/docs/dusk" class="underline">Dusk</a>, <a href="https://laravel.com/docs/broadcasting" class="underline">Echo</a>, <a href="https://laravel.com/docs/horizon" class="underline">Horizon</a>, <a href="https://laravel.com/docs/sanctum" class="underline">Sanctum</a>, <a href="https://laravel.com/docs/telescope" class="underline">Telescope</a>, and more.
-                                </div>
-                            </div>
-                        </div>
+<div class="container-fluid hero" style="background: #F9F20E; padding: 10px; display: flex; flex-direction: row; align-items: center; justify-content: center; min-height: 600px; text-align: center;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <h1 class="fs-1 fw-bold text-danger">
+                    Share your TOP exclusive  recommendations of products, things, people brands & places with your followers
+                </h1>
+                <p class="fw-bold">
+                    Submit your email below if you're interested and we will reach out to you shortly!
+                </p>
+                @if (\Session::has('msg'))
+                    <div class="alert alert-primary">
+                        {!! \Session::get('msg') !!}
                     </div>
-                </div>
-
-                <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
-                    <div class="text-center text-sm text-gray-500 sm:text-left">
-                        <div class="flex items-center">
-                            <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" class="-mt-px w-5 h-5 text-gray-400">
-                                <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
-
-                            <a href="https://laravel.bigcartel.com" class="ml-1 underline">
-                                Shop
-                            </a>
-
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="ml-4 -mt-px w-5 h-5 text-gray-400">
-                                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                            </svg>
-
-                            <a href="https://github.com/sponsors/taylorotwell" class="ml-1 underline">
-                                Sponsor
-                            </a>
+                @endif
+                <form class="mt-4 row row-cols-lg-auto g-3 align-items-center justify-content-center" action="/subscribe" method="post">
+                    @csrf
+                    <div class="col-12">
+                        <label class="visually-hidden" for="inlineFormInputGroupUsername">Your Email Address</label>
+                        <div class="input-group">
+                            <input style="background: transparent;
+    border-bottom: 3px solid #000000;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    color: #000000;" type="email" name="email" required class="form-control" id="inlineFormInputGroupUsername" placeholder="Your Email Address">
                         </div>
                     </div>
 
-                    <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-danger btn-lg">I'm Interested</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
-    </body>
+    </div>
+</div>
+
+<div class="container" style="padding: 12px; margin-top: 60px;">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="fw-bold fs-1 text-danger">
+                        What is Cartingly?
+                    </h2>
+                    <p>
+                        We're on a mission to enable followers of Influencers to be able to consume those Influencer's exclusive TOP recommendations in the easiest, fastest, detailed and organized way. Influencers can build Recommendation Carts of products, things, places, brands and people. Followers can then discover and follow these Carts, save a lot of time and receive a TON of detailed information about recommendations.
+                    </p>
+                </div>
+                <div class="col-md-6">
+{{--                    <img style="height: 250px;" src="{{asset('/Untitled-6.webp')}}" class="img-fluid">--}}
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 60px;">
+                <div class="col-12">
+                    <h2 class="fw-bold fs-1 text-danger text-center mt-4">
+                        Incredible Benefits For Influencers
+                    </h2>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 120px;">
+
+                <div class="col-md-8">
+                    <h2 class="fw-bold fs-1 text-danger">
+                        Highly Lucrative Partner Program & Highly Effective Ad Model.
+                    </h2>
+                    <p class="fw-bold">
+                        We do Revenue Sharing with Influencers. Our percentage split is 80% for the Influencers and we keep 20%. Our requirements are very minimal in order to participate in the Partner Program.
+                    </p>
+                    <p>
+                        The reason why we have such a lucrative Partner Program is because we can charge advertisers much more than other platforms because of our highly precise ad placement. We are also the only platform on the internet that allows Brands exclusivity to particular influencers or Recommendation Pages. Brands can choose to be the exclusive advertiser of a particular Influencer (meaning any of their Recommendation Carts and Pages), particular Recommendation Cart(s) and Recommendation Page(s). For example let's say an advertiser only has one ad on an Influencer's Recommendation Cart or only on one Recommended Page, even with just that one single ad, no other advertiser will be allowed to add their ad ANYWHERE on that Influencer's Recommendation Carts or Page for the duration that you chose. Meaning that an Influencer's followers (the same groups of people) who will look at new Recommendation Pages, will see ads from the same brand over and over again which is great for advertisers.
+                    </p>
+                    <p>
+                        Advertisers can post the same exact ad on all of the Recommendation Pages from that same Influencer.
+                    </p>
+                    <p>
+                        With an individual brand being the exclusive advertiser for an Influencer, the SAME EXACT GROUP of followers of that Influencer will see ONLY ADS FROM THE SAME ADVERTISER EVERY SINGLE DAY over and over again placed next to brand new recommendations from that Influencer. That will be incredibly effective in getting followers to click on your ads.
+                    </p>
+                    <p>
+                        Unlike other advertising platforms, on Cartingly, we charge Brands a weekly flat rate per influencer and they can add UNLIMITED number of ads to each one a particular Influencer's Recommendation Pages. The metric that we use to determine the weekly advertising rate that an advertiser will pay is very simple. We charge 10 cents for each open that all of an Influencer's Recommendation Carts had the previous 7 days. So if the total number of opens was 50,000, we would charge the advertiser a flat rate of $5,000 for the next 7 days and they can have one ad on each of the Influencer's Recommendation Pages.
+                    </p>
+                    <p>
+                        Advertisers see the specific individual product and the Recommendation Cart that their ad will be placed right next to, before they pay and before the ad goes live. This is invaluable because the advertisers can then tailor the content in their ad to much better and precisely match the product, the product attributes and the Recommendation Cart. This will dramatically increase the chances of people clicking on their ad and thus we why can charge much more per ad.
+                    </p>
+                    <p>
+                        We allow up to 2,000 characters per ad (way more than other advertising platforms) so that advertisers can attract the attention of users much more effectively. Ads will also have full text formatting with font sizes, colors, fonts and font weights. This enables advertisers to stylize the ad content that will better attract the attention of users.
+                    </p>
+                    <p>
+                        How much can an Influencer earn? Out of the 10 cents that Cartingly earns from each open of a Recommendation Page, the Influencer earn 8 cents. So for example, let's say an Influencer has 5,000 followers on Instagram. They are able to get 2,000 of them to sign up for Cartingly. Each Influencer must create at least one new Recommendation Cart per day. Let's assume each Cart has an average of 6 products. Out of the 2,000 followers, an average of 1,000 per day open the new Recommendation Cart. Each one of those 1,000 opens each of the 6 Recommendation Pages (products). That is 6,000 opens per day just based off of 1,000 followers being engaging daily. That means the Influencer is earning PER DAY, $480. Again this example is just based on 1,000 daily engaged followers.
+                    </p>
+                    <p>
+                        How and when do Influencers get paid? Influencers get paid on a weekly basis on the day that advertisers pay Cartingly. So advertisers will pay upfront for the next 7 days. We pay Influencers via direct deposit.
+                    </p>
+                    <p>
+                        We allow advertisers to choose from three purposes for their ad as it relates to the recommended product. Their product serves as a fantastic pairing for the recommended product, their product serves as another highly relevant choice for that recommended product and finally their content serves as a highly informative piece of content about the recommended product. Advertisers can choose a headline for the ad that will tell people the benefit of the product or content in the ad, as it relates to your recommended product. With this, the ad isn't seen as an ad but more so a valuable asset (a product pairing, another choice for that product or a highly informative piece of content).
+                    </p>
+                    <p>
+                        We also allow the advertisers to see why the influencer recommended each product and to tie that into the content in their ad so their ad is even more relevant to the recommended product.
+                    </p>
+                    <p>
+                        For these reasons, we can charge brands MUCH higher ad rates than other platforms and thus our Influencers make much more money with our Partner Program.
+                    </p>
+                    <p>
+                        After you're invited to join Cartingly as an Influencer, you will need to create your first Recommendation Cart within 7 days afterwards. Influencers will then simply need to maintain at least 1,000 new opens per week across all of the Recommendation Carts as well as post at least 1 new Recommendation Cart per day. The more Opens you have the higher the advertiser will pay for, the next week.
+                    </p>
+                    <p>
+                        These advertisements will be displayed above your Recommended Product inside each Recommendation Page inside of your Recommendation Cart. People will clearly be able to tell that our ad is NOT one of your recommendations.
+                    </p>
+                </div>
+
+                <div class="col-md-4">
+{{--                    <img src="{{asset('/money.webp')}}" class="img-fluid" style="text-align: right; ">--}}
+                </div>
+
+{{--                <div class="col-md-5 mt-5">--}}
+{{--                    <img src="{{asset('/phone.webp')}}" class="img-fluid" style="height: 320px; text-align: right;">--}}
+{{--                </div>--}}
+
+                <div class="col-md-7 mt-5" >
+                    <h2 class="fw-bold fs-1 text-danger">
+                        Super Detailed
+                    </h2>
+                    <p>
+                        We're super detailed! Let's say for example your recommendation is for a recipe, people will see the a lot of information. They will see the recipe itself, why that recipe is good for the title of that Recommendation Cart, individually list ingredients, a URL to the exactly product page where they can buy that item, the retailer and the price of the ingredient. So they can simply shop online for the ingredients in a very organized and fast manner.
+
+                    </p>
+                    <p>
+                        As people buy each item either in store or online, they can simply remove that item from the list. Everything is in one simple place.
+                    </p>
+
+                </div>
+
+
+
+
+                <div class="col-md-7 mt-5" >
+                    <h2 class="fw-bold fs-1 text-danger">
+                        Super Organized
+                    </h2>
+                    <p>
+                        We're super organized as well. With Cartingly, people will have 3 lists in their profile. Products & Things, Places and finally People and Brands. For the first two, they will be separated into two lists, Single Destination and Multi-Destination. There is a big beneficial reason for this.
+                    </p>
+                    <p>
+                        For example, let's say the Recommendation Cart is for "Best Burgers In NYC". With this great organization, people will be able to see a list of the establishments that the Influencer has recommended but it will be organized by individual establishments and within each establishment you can see which burgers you should try, their price and why you should try it along with a link back to the Influencer's Cartingly profile and any other important details.
+                    </p>
+                    <p>
+                        Every time that people Save a Cart, it will automatically be added to one of the 3 lists.
+                    </p>
+                </div>
+
+                <div class="col-md-5 mt-5">
+{{--                    <img src="{{asset('/yoga.webp')}}" class="img-fluid" style="height: 320px; text-align: right; float: right;">--}}
+                </div>
+
+{{--                <div class="col-md-4 mt-5">--}}
+{{--                    <img src="{{asset('/talk.webp')}}" class="img-fluid" style=" text-align: right; ">--}}
+{{--                </div>--}}
+                <div class="col-md-8 mt-5">
+                    <h2 class="fw-bold fs-1 text-danger">
+                        Much Better Follower Engagement
+                    </h2>
+                    <p>
+                        Using Cartingly will lead to much better and in depth engagement from your followers. Because your followers can capture, remember and try many more of your recommendations than ever before thanks to our detailed, organized and automated saving functionality of recommendations. This will lead them to share more of your Recommendation Carts on social media allowing more of their friends to see them, enabling you to get more followers, have more Opens on Cartingly and ultimately leading to you generating more advertising revenue.
+                    </p>
+
+                </div>
+
+                <div class="col-md-4 mt-5">
+{{--                    <img src="{{asset('/groc.webp')}}" class="img-fluid" style="height: 380px; text-align: right; ">--}}
+                </div>
+                <div class="col-md-8 mt-5">
+                    <h2 class="fw-bold fs-1 text-danger">
+                        Categories
+                    </h2>
+                    <p>
+                        Within each cart, Influencers will create Categories to better organize options for each type of Category within a recommendation. For example, let's say the recommendation is for a home remodel.
+                    </p>
+                    <p>
+                        A Category could be sofas. And then within sofas, you will easily be able to see all of the choices for sofas that the Influencer has recommended along with the exact product page URL or shop name of where it can be bought and the price.
+                    </p>
+                </div>
+
+                <div class="col-md-7 mt-5" >
+                    <h2 class="fw-bold fs-1 text-danger">
+                        Follow Carts
+                    </h2>
+                    <p>
+                        Our Follow Cart feature allows you to simply follow a cart and each time the Influencer adds something to the cart, that item will be automatically added to one of the proper 3 lists and the important information will be properly organized. This way you can always be sure that you will always be organized and updated with the new recommendations from your favorite Influencers.
+                    </p>
+
+                </div>
+
+                <div class="col-md-5 mt-5">
+{{--                    <img src="{{asset('/cart.webp')}}" class="img-fluid" style="height: 320px; text-align: right; float: right;">--}}
+                </div>
+
+{{--                <div class="col-md-4 mt-5">--}}
+{{--                    <img src="{{asset('/rest.webp')}}" class="img-fluid" style="text-align: right; ">--}}
+{{--                </div>--}}
+                <div class="col-md-8 mt-5">
+                    <h2 class="fw-bold fs-1 text-danger">
+                        Relax & Follow Influencers
+                    </h2>
+                    <p>
+                        People can sit back, relax, save time, stay very organized and detailed with new Recommendation Carts from each Influencer that they follow. Each time that an Influencer creates a Cart Recommendation, that cart and all of the products or people within that Cart, will be automatically added to one of the proper 3 lists. This enables people to not have to go back to the Influencer's profile to check for new recommendations and always stay organized, detailed and up to date.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="row mt-5">
+
+{{--                <div class="col-md-4 mt-5">--}}
+{{--                    <img src="{{asset('/lead.webp')}}" class="img-fluid" style="height: 240px; text-align: right; ">--}}
+{{--                </div>--}}
+
+                <div class="col-md-8 mt-5">
+                    <h2 class="fw-bold fs-1 text-danger">
+                        Leaderboards
+                    </h2>
+                    <p>
+                        We will have 3 leaderboards (Places, People/Brands and Products/Things). Carts will be displayed in order of total Opens. This way, Influencers increase the chances of getting noticed more and capturing more followers much more easily than other social media platforms. Leaderboards are the sole way that people can discover new Recommendation Carts and Influencers to follow.
+                    </p>
+
+                </div>
+
+
+
+
+                <div class="col-md-8 mt-5">
+                    <h2 class="fw-bold fs-1 text-danger">
+                        Easily Checkoff
+                    </h2>
+                    <p>
+                        People can easily checkoff each item that they have bought so that they can easily stay up to date on the recommended items and brands they still need to try and people they still need to follow.
+                    </p>
+
+                </div>
+
+                <div class="col-md-4 mt-5">
+{{--                    <img src="{{asset('/tick.webp')}}" class="img-fluid" style="height: 240px; text-align: right; ">--}}
+                </div>
+
+                <div class="col-md-8 mt-5">
+                    <h2 class="fw-bold fs-1 text-danger">
+                        Vote On Recommendations
+                    </h2>
+                    <p>
+                        Influencers can allow their followers to ask them for recommendations and then fellow followers can vote on those recommendations. This way Influencers can provide recommendations to their followers that they want the most.
+                    </p>
+
+                </div>
+
+                <div class="col-md-4 mt-5">
+{{--                    <img src="{{asset('/reco.webp')}}" class="img-fluid" style="height: 240px; text-align: right; ">--}}
+                </div>
+
+
+
+
+                <div class="col-md-6 mt-5">
+                    <h2 class="fw-bold fs-1 text-danger">
+                        Easily Access Cart Details
+                    </h2>
+                    <p>
+                        At anytime easily go back to the cart to access the Influencer's profile, the description of the cart along with any other important details.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+<div class="contsiner-fluid" style="padding: 30px; background: #F9F20E;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="{{asset('logo.webp')}}" style="width: 120px;" class="img-fluid mb-4" alt="cartingly">
+            </div>
+            <div class="col-md-3">
+                <h4 class="fw-bold">Cartingly</h4>
+                <p><a href="/">Influencers</a> </p>
+                <p><a href="/advertisers">Advertisers</a> </p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="fw-bold">Let's Connect</h4>
+                <p><a href="mailto:advertisers@cartingly.com">Email Us</a> </p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="fw-bold">Legal Stuff</h4>
+                <p><a href="/terms">Terms</a> </p>
+                <p><a href="/privacy">Privacy</a> </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
 </html>

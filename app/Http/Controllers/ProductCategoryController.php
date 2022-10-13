@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\CartOpen;
+use App\Models\CartUser;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
@@ -12,11 +14,15 @@ class ProductCategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function index()
+    public function index($id): JsonResponse
     {
-        //
+        $types = ProductCategory::where('user_id', auth()->user()->id)
+            ->where('cart_id', $id)
+            ->get();
+
+        return response()->json(['data' => $types], 200);
     }
 
     /**
@@ -33,11 +39,19 @@ class ProductCategoryController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        //
+        $type = new ProductCategory;
+
+        $type->user_id = auth()->user()->id;
+        $type->cart_id = $request->cartId;
+        $type->cate_name = $request->cate;
+
+        $type->save();
+
+        return response()->json(['id' => $type->id]);
     }
 
     /**
@@ -54,7 +68,23 @@ class ProductCategoryController extends Controller
             $query->select('id', 'name');
         }])->withCount('cart_opens as opens')->where('id', $id)->get();
 
-        return response()->json(['cart' => $product_type], 200);
+        if(count($product_type) > 0) {
+            //add cart opens
+            $cartOpen = new CartOpen;
+
+            $cartOpen->user_id = $product_type[0]->user_id;
+            $cartOpen->cart_id = $id;
+            $cartOpen->open = 1;
+
+            $cartOpen->save();
+        }
+
+        // getting save cart
+        $saveCart = CartUser::where('user_id', auth()->user()->id)
+            ->where('cart_id', $id)
+            ->get();
+
+        return response()->json(['cart' => $product_type, 'save_cart' => count($saveCart)], 200);
     }
 
     /**
@@ -84,10 +114,14 @@ class ProductCategoryController extends Controller
      * Remove the specified resource from storage.
      *
      * @param ProductCategory $productCategory
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function destroy(ProductCategory $productCategory)
+    public function destroy($id): JsonResponse
     {
-        //
+        ProductCategory::where('id', $id)
+            ->where('user_id', auth()->user()->id)
+            ->delete();
+
+        return response()->json(['status' => 'success']);
     }
 }

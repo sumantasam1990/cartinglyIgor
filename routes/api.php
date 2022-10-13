@@ -26,7 +26,9 @@ use Illuminate\Validation\ValidationException;
 |
 */
 
-
+Route::get('/users', function () {
+    return response()->json(User::all());
+});
 
 
 Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
@@ -72,6 +74,21 @@ Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
     Route::get('profile/total/followers/{id?}', [\App\Http\Controllers\ProfileController::class, 'totalFollowers']);
 
     Route::get('done', [\App\Http\Controllers\ProfileController::class, 'totalFollowers']);
+
+    Route::post('cart/save/step1', [CartController::class, 'store']);
+    Route::post('cart/save/step2', [ProductCategoryController::class, 'store']);
+    Route::get('get/product/types/{id}', [ProductCategoryController::class, 'index']);
+    Route::get('get/product/types/delete/{id}', [ProductCategoryController::class, 'destroy']);
+    Route::post('cart/save/step3', [ProductController::class, 'store']);
+    Route::post('cart/save/step4', [\App\Http\Controllers\ProductImageController::class, 'store']);
+    Route::get('get/product/images/{id}', [\App\Http\Controllers\ProductImageController::class, 'index']);
+
+    Route::post('save/cart/store', [\App\Http\Controllers\SaveCartController::class, 'store']);
+
+    Route::post('follow/user/store', [\App\Http\Controllers\ProfileController::class, 'followStore']);
+    Route::get('profile/{id?}', [\App\Http\Controllers\ProfileController::class, 'index']);
+    Route::get('cart/delete/{id}', [CartController::class, 'destroy']);
+    Route::get('cart/publish/{id}', [CartController::class, 'update']);
 
 
 

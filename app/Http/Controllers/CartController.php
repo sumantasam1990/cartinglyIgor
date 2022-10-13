@@ -27,18 +27,44 @@ class CartController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        //
+        try {
+            $file = '';
+            if ($request->photo) {
+                $folderPath = "uploads/";
+
+                $image_base64 = base64_decode($request->photo);
+                $file = $folderPath . 'cartingly_'.uniqid().time() . '.jpg';
+
+                file_put_contents($file, $image_base64);
+            }
+
+            $cart = new Cart;
+
+            $cart->user_id = auth()->user()->id;
+            $cart->level_two_id = $request->two;
+            $cart->cart_name = $request->cart;
+            $cart->main_photo = env('APP_URL') . '/' . $file;
+            $cart->important_details = $request->desc;
+            $cart->main_category_id = $request->main_cate;
+            $cart->status = 0;
+
+            $cart->save();
+
+            return response()->json(['id' => $cart->id], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'Something is wrong. Please try again later.' . $th->getMessage()], 500);
+        }
     }
 
     /**
@@ -69,26 +95,16 @@ class CartController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param Cart $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Cart $cart)
+    public function update(int $id): JsonResponse
     {
-        //
+        $published = Cart::where('id', $id)->update(['status' => 1]);
+        return response()->json(['id' => $published], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Cart $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Cart $cart)
+    public function destroy($id): JsonResponse
     {
-        //
+        Cart::where('id', $id)
+            ->delete();
+        return response()->json(['delete' => 'deleted']);
     }
 }

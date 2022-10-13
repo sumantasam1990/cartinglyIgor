@@ -16,16 +16,24 @@ class PassportAuthController extends Controller
      */
     public function register(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|min:4',
-            'email' => 'required|email',
-            'password' => 'required|min:8',
-        ]);
+        $file = '';
+        if ($request->photo) {
+            $folderPath = "uploads/";
+
+            $image_base64 = base64_decode($request->photo);
+            $file = $folderPath . 'cartingly_'.uniqid().time() . '.jpg';
+
+            file_put_contents($file, $image_base64);
+        }
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'twitter' => $request->tw,
+            'fb' => $request->fb,
+            'pin' => $request->pin,
+            'photo' => env('APP_URL') . '/' . $file,
         ]);
 
         return response()->json(['token' => $user->createToken($request->email.uniqid())->plainTextToken], 200);

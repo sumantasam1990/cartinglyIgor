@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\FolllowerUser;
 use App\Models\Follower;
 use App\Models\MainCategory;
 use App\Models\User;
@@ -24,6 +25,20 @@ class ProfileController extends Controller
         return $this->extracted($id, $status);
     }
 
+    public function index(int $id = 0): JsonResponse
+    {
+        if($id === 0) {
+            $profile = User::select('id', 'name')->withCount(['followers as followers', 'cart_opens as opens'])
+                ->where('id', \auth()->user()->id)
+                ->get();
+        } else {
+            $profile = User::select('id', 'name')->withCount(['followers as followers', 'cart_opens as opens'])
+                ->where('id', $id)
+                ->get();
+        }
+        return \response()->json(['profile' => $profile]);
+    }
+
     public function savedCarts(int $id = 0): JsonResponse
     {
         if($id === 0) {
@@ -40,7 +55,7 @@ class ProfileController extends Controller
         return response()->json(['saved_carts' => $saved_carts], 200);
     }
 
-    public function cartsFollowing(int $id = 0): JsonResponse
+    public function cartsFollowing($id = 0): JsonResponse
     {
         if($id === 0) {
             $followers = Follower::with(['followings.carts' => function($query) {
@@ -62,17 +77,17 @@ class ProfileController extends Controller
     public function cartsListing(int $id = 0, int $main = 0): JsonResponse
     {
         if($id === 0) {
-            $listing = Cart::where('user_id', \auth()->user()->id)
-                ->where('main_category_id', $main)
-                ->where('status', 1)
-                ->withCount('cart_opens as opens')
-                ->get();
+            $listing = User::with(['save_cart_many' => function ($query) use ($main) {
+                $query->where('main_category_id', $main);
+                $query->where('status', 1);
+                $query->withCount('cart_opens as opens');
+            }])->where('id', \auth()->user()->id)->get();
         } else {
-            $listing = Cart::where('user_id', $id)
-                ->where('main_category_id', $main)
-                ->where('status', 1)
-                ->withCount('cart_opens as opens')
-                ->get();
+            $listing = User::with(['save_cart_many' => function ($query) use ($main) {
+                $query->where('main_category_id', $main);
+                $query->where('status', 1);
+                $query->withCount('cart_opens as opens');
+            }])->where('id', $id)->get();
         }
 
         return response()->json(['listings' => $listing], 200);
@@ -102,6 +117,24 @@ class ProfileController extends Controller
         }
 
         return \response()->json(['total' => $followers], 200);
+    }
+
+    public function followStore(Request $request): JsonResponse
+    {
+        $follower = new Follower;
+
+        $follower->user_id = \auth()->user()->id;
+
+        $follower->save();
+
+        $follow_user = new FolllowerUser;
+
+        $follow_user->follower_id = $follower->id;
+        $follow_user->user_id = $request->userId;
+
+        $follow_user->save();
+
+        return response()->json(['id' => $follow_user->id], 200);
     }
 
 
