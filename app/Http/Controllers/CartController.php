@@ -57,6 +57,7 @@ class CartController extends Controller
             $cart->main_photo = env('APP_URL') . '/' . $file;
             $cart->important_details = $request->desc;
             $cart->main_category_id = $request->main_cate;
+            $cart->single_multi = $request->single_multi;
             $cart->status = 0;
 
             $cart->save();

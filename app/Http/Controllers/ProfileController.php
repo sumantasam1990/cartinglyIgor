@@ -28,11 +28,11 @@ class ProfileController extends Controller
     public function index(int $id = 0): JsonResponse
     {
         if($id === 0) {
-            $profile = User::select('id', 'name')->withCount(['followers as followers', 'cart_opens as opens'])
+            $profile = User::select('id', 'name', 'photo')->withCount(['followers as followers', 'cart_opens as opens'])
                 ->where('id', \auth()->user()->id)
                 ->get();
         } else {
-            $profile = User::select('id', 'name')->withCount(['followers as followers', 'cart_opens as opens'])
+            $profile = User::select('id', 'name', 'photo')->withCount(['followers as followers', 'cart_opens as opens'])
                 ->where('id', $id)
                 ->get();
         }
